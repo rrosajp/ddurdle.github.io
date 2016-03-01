@@ -1,1 +1,1 @@
-rsync -avix --progress --exclude-from '.git' ../XBMC-CloudStream/* repo/plugin.video.cloudstream
+rsync -avix --progress  ../../XBMC-CloudStream/* plugin.video.cloudstream

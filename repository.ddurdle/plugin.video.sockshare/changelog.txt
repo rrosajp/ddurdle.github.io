@@ -1,0 +1,8 @@
+Version 0.0.3
+- cast fix
+Version 0.0.2
+- support for public URLS [invoke w/ plugin://plugin.video.sockshare/?mode=streamURL&amp;url=http://www.sockshare.com/file/#####]
+- added MemoryCache type
+- fix login captcha
+Version 0.0.1
+- Initial version

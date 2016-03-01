@@ -1,0 +1,35 @@
+Version 0.3.3
+- fix for automatically converting old settings account configuration to new settings
+Version 0.3.2
+- added Library STRM build function in settings
+Version 0.3.1
+- fix title to display properly and consistently
+Version 0.3.0
+- multiple account support (up to 10)
+- update to clearauth
+- fix: Multiple account support #4
+Version 0.2.3
+- fix for folder check
+Version 0.2.2
+- refactor API: streamVideo, playVideo, streamAudio, playAudio (added)
+- list and play files that are not recognied as either Video or Audio (type: Other)
+- add playback type variable
+Version 0.2.1
+- fix change on firedrive for streamURL
+- workaround server issue with broken user token
+- fix: don't prevent public url playback if no user account is specified in settings
+Version 0.2.0
+- display title when playback of video title directly
+- playback in HD, if HD stream available
+- fix for public URLs that belong to signed in user; don't need to press "continue to file" button (automatically detect this condition)
+- fix playback for audio streams
+- add parameter to force SD playback (ignore HD)
+- save_auth_token should be true (speed up; automatic login)
+Version 0.1.0
+- site change: fix view_media API call
+- added thumbnail support
+Version 0.0.2
+- support for folders [invoke w/ plugin://plugin.video.firedrive/?mode=folder&amp;folderID=unique_folder_id]
+- support for public URLS [invoke w/ plugin://plugin.video.firedrive/?mode=streamURL&amp;url=http://www.firedrive.com/file/#####]
+Version 0.0.1
+- Initial version

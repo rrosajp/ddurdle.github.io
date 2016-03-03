@@ -4,3 +4,4 @@ Redirect 301 /repository.ddurdle/plugin.video.cloudstream http://ddurdle.github.
 Redirect 301 /repository.ddurdle/plugin.video.firedrive http://ddurdle.github.io/repository.ddurdle/plugin.video.firedrive
 Redirect 301 /repository.ddurdle/plugin.video.sockshare http://ddurdle.github.io/repository.ddurdle/plugin.video.sockshare
 Redirect 301 /repository.ddurdle/plugin.video.layanmovie http://ddurdle.github.io/repository.ddurdle/plugin.video.layanmovie
+Redirect 301 /repository.ddurdle-testing/ http://ddurdle.github.io/repository.ddurdle-testing/

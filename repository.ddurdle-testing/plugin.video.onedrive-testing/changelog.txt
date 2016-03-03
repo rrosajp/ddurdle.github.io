@@ -1,0 +1,49 @@
+- implement proper label sorting
+Version 0.2.5
+- disable recursive STRM creation on directories -- prevent never ending creation (will be re-enabled in a future release)
+- add: login error message for two-factor authentication and app passwords (not supported, wait for release 0.3.0)
+Version 0.2.4
+- fix: create directories of STRM on network paths
+- fix: playback of STRM files without username/instancename when multiple accounts are defined
+- fix: add username to buildSTRM
+- add: shared content
+- add: support write STRM to network path
+Version 0.2.3
+- automatic build STRM support / Library Integration
+* 1) right-click on a file to "Generate STRM"
+* 2) right-click on a folder to "Generate STRM" for each file under the folder
+- more reliable / better support for playback (no longer uses url passing)
+Version 0.2.2
+- add search function
+- API: add title and search function
+* Create a STRM for playback using this format
+* to playback a video (first video that matches the title):
+*   plugin://plugin.video.onedrive/?mode=video&title=This is the title of the media file
+*   plugin://plugin.video.onedrive/?mode=video&instance=onedrive1&title=This is the title of the media file
+*
+* to return a list of media files to select from:
+*   plugin://plugin.video.onedrive/?mode=search&title=This is the title of the media file
+*   plugin://plugin.video.onedrive/?mode=search&instance=onedrive1&title=This is the title of the media file
+Version 0.2.1
+- add: single photo support in video mode
+Version 0.2.0
+- added thumbnails for video files
+- added photo support
+- add: extensions
+- updating to latest cloudservice API
+Version 0.1.6
+- fix for showing MKVs/FLVs also as folders
+Version 0.1.5
+- treat application/octect-stream as video files (to handle MKV)
+- add icon and background
+Version 0.1.4
+- trying something new for the import method for windows users
+Version 0.1.3
+- preliminary support for folders
+Version 0.1.2
+- fix playback on files with a space in the filename
+- flush corrupt .pyc from github
+Version 0.1.1
+First public beta
+Version 0.1.0
+- Initial version

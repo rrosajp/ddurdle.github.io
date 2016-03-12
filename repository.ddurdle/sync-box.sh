@@ -1,1 +1,1 @@
-rsync -avix --progress --exclude-from '.git' --exclude '*.pyc' ../KODI-Box/* repo/plugin.video.box
+rsync -avix --progress  --exclude '*.pyc' ../../KODI-Box/* plugin.video.box

@@ -1,6 +1,6 @@
-repository.ddurdle
+repository.ddurdle-testing
 ==========================
 
-XBMC repository for ddurdle Cloud Services addons
+XBMC repository for ddurdle Cloud Services addons (testing)
 
 

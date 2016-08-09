@@ -1,3 +1,16 @@
+v0.7.59 (2016-07-27)
+- minor updates to spreadsheets
+v0.7.58 (2016-07-24)
+- spreadsheets - fix resume automatically
+- spreadsheets - fix for registering with different names (non-default)
+- spreadsheets - fix for registering with duplicate names
+- spreadsheets - skip read-only spreadsheets
+v0.7.57 (2016-07-23)
+- add gplayer debug statements
+v0.7.56 (2016-07-17)
+- fix for CLOUD_DB activation
+v0.7.55 (2016-07-15)
+- stability improvements for encfs
 v0.7.54 (2016-07-11)
 - add encfs 'prefer to stream" option (contiue = false, single file = true)
 - encfs: better tracking for disrupted playback

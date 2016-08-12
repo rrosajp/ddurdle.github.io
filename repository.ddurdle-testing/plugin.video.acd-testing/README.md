@@ -5,7 +5,7 @@ Amazon Cloud Drive add-on for KODI / XBMC
 A video add-on for XBMC that enables playback of videos stored in an Amazon Cloud Drive account.
 
 **Supports [Tested on]:**
-All XBMC 12/13/14 including Linux, Windows, OS X, Android, Pivos, iOS (including ATV2)
+All KODI / XBMC 12/13/14 including Linux, Windows, OS X, Android, Pivos, iOS (including ATV2)
 
 The plugin uses the Amazon Cloud Drive API
 

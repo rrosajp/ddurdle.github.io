@@ -1,6 +1,9 @@
+v0.1.7 (2016-08-11)
+- fix for _contentURL
 v0.1.6 (2016-08-09)
 - added playback support for TS and ISO (video) files.
 - improvements for save to .strm tv shows (preserve . correctly)
+- implement: Support for TS-Files #11
 Version 0.1.5
 - fix: token timeout with playback via STRM
 Version 0.1.4

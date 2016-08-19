@@ -1058,7 +1058,7 @@ class cloudservice(object):
                 if self.settings.download or  self.settings.cache:
                     mediaURL.url = totalList[0].url
                 else:
-                    mediaURL.url = totalList[0].url +'|' + self.getHeadersEncoded()
+                    mediaURL.url = totalList[0].url### +'|' + self.getHeadersEncoded()
 
             else:
                 mediaURL = mediaurl.mediaurl(str(totalList[0]), 'offline', 0, 0)

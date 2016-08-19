@@ -890,11 +890,11 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 ret = xbmcgui.Dialog().select(addon.getLocalizedString(30112), options)
                 playbackPath = urls[ret]
 
-                item = xbmcgui.ListItem(path=playbackPath+'|' + service.getHeadersEncoded())
+                item = xbmcgui.ListItem(path=playbackPath)###+'|' + service.getHeadersEncoded())
                 item.setInfo( type="Video", infoLabels={ "Title": options[ret] , "Plot" : options[ret] } )
                 if settings.integratedPlayer:
                     player = gPlayer.gPlayer()
-                    player.play(playbackPath+'|' + service.getHeadersEncoded(), item)
+                    player.play(playbackPath, item)###+'|' + service.getHeadersEncoded()
                     xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
                 else:
                     xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
@@ -1119,7 +1119,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
         else:
             mediaURL = mediaURLs[0]
             if not settings.download:
-                mediaURL.url =  mediaURL.url +'|' + service.getHeadersEncoded()
+                mediaURL.url =  mediaURL.url #+'|' + service.getHeadersEncoded()
 
         playbackPlayer = settings.integratedPlayer
 

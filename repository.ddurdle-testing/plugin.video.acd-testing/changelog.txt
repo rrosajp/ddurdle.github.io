@@ -1,3 +1,5 @@
+v0.1.8 (2016-08-19)
+- fix: Big Mkv Files #9
 v0.1.7 (2016-08-11)
 - fix for _contentURL
 v0.1.6 (2016-08-09)

@@ -550,7 +550,11 @@ class acd(cloudservice):
 
                 url = self.contentURL +'nodes/' + resourceID + '/content'
 
-                for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
+                #for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
+                #             entry, re.DOTALL):
+                #    url = r.group(1)
+                #    break
+                for r in re.finditer('\"tempLink\"\:\"([^\"]+)\"' ,
                              entry, re.DOTALL):
                     url = r.group(1)
                     break
@@ -609,7 +613,6 @@ class acd(cloudservice):
 
                     media = package.package(mediaFile,folder.folder(folderName,''))
                     media.setMediaURL(mediaurl.mediaurl(url, 'original', 0, 9999))
-
 
 #                    try:
 #                        if float(resume) > 0:
@@ -1011,8 +1014,40 @@ class acd(cloudservice):
             docid = package.file.id
 
             # new method of fetching original stream -- using alt=media
-            url =  self.contentURL  +'nodes/' + str(docid) + '/content'
-            mediaURLs.append(mediaurl.mediaurl(url, 'original', 0, 9999))
+            #url =  self.contentURL  +'nodes/' + str(docid) + '/content'
+            url = self.metaURL +'nodes/'+ str(docid) + '?tempLink=true'
+            req = urllib2.Request(url, None, self.getHeadersList())
+
+            # if action fails, validate login
+            try:
+                response = urllib2.urlopen(req)
+            except urllib2.URLError, e:
+                if e.code == 403 or e.code == 401:
+                    self.refreshToken()
+                    req = urllib2.Request(url, None, self.getHeadersList())
+                    try:
+                        response = urllib2.urlopen(req)
+                    except urllib2.URLError, e:
+                        xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
+                        self.crashreport.sendError('getMediaList',str(e))
+                        return
+                else:
+                    xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
+                    self.crashreport.sendError('getMediaList',str(e))
+                    return
+
+            response_data = response.read()
+            response.close()
+
+            # parsing page for videos
+            # video-entry
+            for r1 in re.finditer('\{(.*?)\,\"status\"\:\"[^\"]+\"\}' , response_data, re.DOTALL):
+                entry = r1.group(1)
+                media = self.getMediaPackage(entry, contentType=7)
+                if media is not None:
+                    mediaURLs.append(media.mediaurl)
+
+            #mediaURLs.append(mediaurl.mediaurl(url, 'original', 0, 9999))
             #validate token before proceeding
             self.getEndPoint()
 

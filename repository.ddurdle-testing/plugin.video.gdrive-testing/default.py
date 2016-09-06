@@ -116,6 +116,7 @@ xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL)
 xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_SIZE)
 
 numberOfAccounts = cloudservice.numberOfAccounts(PLUGIN_NAME)
+invokedUsername = settings.getParameter('username')
 
 # cloudservice - utilities
 ###
@@ -275,7 +276,10 @@ elif mode == 'buildstrm':
 ###
 
 
-invokedUsername = settings.getParameter('username')
+
+###
+
+
 instanceName = cloudservice.getInstanceName(addon, PLUGIN_NAME, mode, instanceName, invokedUsername, numberOfAccounts, contextType)
 
 service = None
@@ -287,6 +291,45 @@ elif int(settings.getSetting(instanceName+'_type',0))==0 :
     service = gdrive.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
 else:
     service = gdrive_api2.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
+
+#create strm files
+if mode == 'buildstrm2':
+
+
+    import time
+    currentDate = time.strftime("%Y%m%d")
+
+
+    try:
+        path = settings.getSetting('strm_path')
+    except:
+        pass
+
+
+    if path != '':
+
+        try:
+            pDialog = xbmcgui.DialogProgressBG()
+            pDialog.create(addon.getLocalizedString(30000), 'Building STRMs...')
+        except:
+            pass
+
+
+        #service = gdrive_api2.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
+
+        try:
+            addon.setSetting(instanceName + '_changedate', currentDate)
+            service.buildSTRM2(path, contentType=contentType, pDialog=pDialog)
+        except:
+            pass
+
+        try:
+            pDialog.update(100)
+            pDialog.close()
+        except:
+            pass
+
+    xbmcplugin.endOfDirectory(plugin_handle)
 
 
 
@@ -413,6 +456,7 @@ elif mode == 'main' or mode == 'index':
         kodi_common.addMenu(PLUGIN_URL+'?mode=index&folder=SHARED&instance='+str(service.instanceName)+'&content_type='+contextType,'['+addon.getLocalizedString(30018)+  ' '+addon.getLocalizedString(30098)+']')
         kodi_common.addMenu(PLUGIN_URL+'?mode=index&folder=STARRED-FILESFOLDERS&instance='+str(service.instanceName)+'&content_type='+contextType,'['+addon.getLocalizedString(30018)+  ' '+addon.getLocalizedString(30097)+']')
         kodi_common.addMenu(PLUGIN_URL+'?mode=search&instance='+str(service.instanceName)+'&content_type='+contextType,'['+addon.getLocalizedString(30111)+']')
+        kodi_common.addMenu(PLUGIN_URL+'?mode=buildstrm2&instance='+str(service.instanceName)+'&content_type='+str(contextType),'<Testing - manual run of change tracking build STRM>')
 
         #CLOUD_DB
         if service.gSpreadsheet is not None:
@@ -1498,6 +1542,47 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 xbmc.sleep(5000)
 
 xbmcplugin.endOfDirectory(plugin_handle)
+
+
+#automation - create strm files
+if service is not None:
+
+
+    import time
+    currentDate = time.strftime("%Y%m%d")
+
+    if addon.getSetting(instanceName+'_changedate') == '' or int(addon.getSetting(instanceName+'_changedate')) < int(currentDate):
+
+
+        try:
+            path = settings.getSetting('strm_path')
+        except:
+            pass
+
+
+        if path != '':
+
+            try:
+                pDialog = xbmcgui.DialogProgressBG()
+                pDialog.create(addon.getLocalizedString(30000), 'Building STRMs...')
+            except:
+                pass
+
+
+            #service = gdrive_api2.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
+
+            try:
+                addon.setSetting(instanceName + '_changedate', currentDate)
+                service.buildSTRM2(path, contentType=contentType, pDialog=pDialog)
+            except:
+                pass
+
+            try:
+                pDialog.update(100)
+                pDialog.close()
+            except:
+                pass
+
 
 
 #                player = gPlayer.gPlayer()

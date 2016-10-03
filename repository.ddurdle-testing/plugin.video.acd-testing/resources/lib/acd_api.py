@@ -591,7 +591,7 @@ class acd(cloudservice):
                     return media
 
                 # entry is a video
-                elif ((fileExtension == '' or fileExtension.lower() not in ('sub')) and (resourceType == 'application/vnd.google-apps.video' or 'video' in resourceType or resourceType in ('application/x-matroska') or fileExtension.lower() in ('mkv', 'ts', 'iso')) and contentType in (0,1,2,4,7)):
+                elif ((fileExtension == '' or fileExtension.lower() not in ('sub')) and (resourceType == 'application/vnd.google-apps.video' or 'video' in resourceType or resourceType in ('application/x-matroska') or fileExtension.lower() in ('mkv', 'm2ts', 'ts', 'iso')) and contentType in (0,1,2,4,7)):
                     mediaFile = file.file(resourceID, title, title, self.MEDIA_TYPE_VIDEO, fanart, thumbnail, size=fileSize, resolution=[height,width], playcount=int(0), duration=duration)
 
                     if self.settings.parseTV:

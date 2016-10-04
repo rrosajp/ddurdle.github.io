@@ -1,0 +1,25 @@
+v0.1.10 (2016-10-04)
+- move to non-testing
+v0.1.9 (2016-10-03)
+- support for m2ts
+v0.1.8 (2016-08-19)
+- fix: Big Mkv Files #9
+v0.1.7 (2016-08-11)
+- fix for _contentURL
+v0.1.6 (2016-08-09)
+- added playback support for TS and ISO (video) files.
+- improvements for save to .strm tv shows (preserve . correctly)
+- implement: Support for TS-Files #11
+Version 0.1.5
+- fix: token timeout with playback via STRM
+Version 0.1.4
+- fix: missing files with extension "" such as some application/x-matroska
+- implement: SEARCH
+- implement: SAVED SEARCH
+Version 0.1.3
+- fix for folders > 200 files
+Version 0.1.2
+- add endpoint logic
+- contributions merge from jbuchbinder (Readme and acd url fixes)
+Version 0.1.1
+- Initial version

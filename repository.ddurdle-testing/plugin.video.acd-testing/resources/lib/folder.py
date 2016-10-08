@@ -1,5 +1,5 @@
 '''
-    Copyright (C) 2014 ddurdle
+    Copyright (C) 2014-2016 ddurdle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,9 +32,10 @@ class folder:
         self.title = title
         self.fanart = fanart
         self.thumb = thumb
+        self.displaytitle = title
 
     def displayTitle(self):
-        return urllib.unquote(self.title)
+        return urllib.unquote(self.displaytitle)
 
 
     def __repr__(self):

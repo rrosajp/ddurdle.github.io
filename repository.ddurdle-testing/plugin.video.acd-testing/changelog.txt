@@ -1,3 +1,12 @@
+v0.2.0 (2016-10-07)
+- sync with latest cloudservices
+- support for encfs
+- implement encfs STRM generation and playback
+- implement - Support to view images #10
+- implement - Import Videos to Kodi Library #7
+- implement - EncFS Support #5
+v0.1.10 (2016-10-04)
+- move to non-testing
 v0.1.9 (2016-10-03)
 - support for m2ts
 v0.1.8 (2016-08-19)

@@ -82,7 +82,7 @@ class acd(cloudservice):
         self.gSpreadsheet = gSpreadsheet
 
         if authenticate == True:
-            self.type = int(addon.getSetting(instanceName+'_type'))
+            self.type = settings.getSettingInt(instanceName+'_type',0)
 
 
         # acd specific ***
@@ -539,7 +539,7 @@ class acd(cloudservice):
                              entry, re.DOTALL):
                     title = r.group(1)
                     break
-                for r in re.finditer('\"size\"\:\"([^\"]+)\"' ,
+                for r in re.finditer('\"size\"\:([^\,]+)' ,
                              entry, re.DOTALL):
                     fileSize = r.group(1)
                     break
@@ -587,6 +587,12 @@ class acd(cloudservice):
                         newtitle = r.group(1)
                         title = '*' + newtitle
                         resourceID = 'SAVED SEARCH'
+                    for r in re.finditer('ENCFS\|([^\|]+)\|([^\|]+)' ,
+                             title, re.DOTALL):
+                        resourceID = r.group(1)
+                        title = r.group(2)
+                        resourceID = 'ENCFS ' + resourceID
+
                     media = package.package(None,folder.folder(resourceID,title, thumb=icon))
                     return media
 
@@ -724,15 +730,15 @@ class acd(cloudservice):
     #   parameters: title of the video file
     #   returns: download url for srt
     ##
-    def getSRT(self, title):
+    def getSRT(self, package):
 
         # retrieve all items
         url = self.API_URL +'files/'
 
         # search for title
-        if title != False:
-            title = os.path.splitext(title)[0]
-            encodedTitle = re.sub(' ', '+', title)
+        if package.file.title != False:
+            title = os.path.splitext(package.file.title)[0]
+            encodedTitle = re.sub(' ', '+', package.file.title)
             url = url + "?q=title+contains+'" + str(encodedTitle) + "'"
 
         srt = []
@@ -961,7 +967,7 @@ class acd(cloudservice):
     #   parameters: package (optional), title of media file, isExact allowing for fuzzy searches
     #   returns: url for playback
     ##
-    def getPlaybackCall(self, package=None, title='', isExact=True):
+    def getPlaybackCall(self, package=None, title='', isExact=True, contentType=7):
 
 
         mediaURLs = []
@@ -971,43 +977,44 @@ class acd(cloudservice):
         # for playback from STRM with title of video provided (best match)
         if package is None and title != '':
 
-            url = self.API_URL +'files/'
-            # search by video title
-            encodedTitle = re.sub(' ', '+', title)
-            if isExact == True:
-                url = url + "?q=title%3d'" + str(encodedTitle) + "'"
-            else:
-                url = url + "?q=title+contains+'" + str(encodedTitle) + "'"
+            if (0):
+                url = self.API_URL +'files/'
+                # search by video title
+                encodedTitle = re.sub(' ', '+', title)
+                if isExact == True:
+                    url = url + "?q=title%3d'" + str(encodedTitle) + "'"
+                else:
+                    url = url + "?q=title+contains+'" + str(encodedTitle) + "'"
 
-            req = urllib2.Request(url, None, self.getHeadersList())
+                req = urllib2.Request(url, None, self.getHeadersList())
 
-            # if action fails, validate login
-            try:
-                response = urllib2.urlopen(req)
-            except urllib2.URLError, e:
-                if e.code == 403 or e.code == 401:
-                    self.refreshToken()
-                    req = urllib2.Request(url, None, self.getHeadersList())
-                    try:
-                        response = urllib2.urlopen(req)
-                    except urllib2.URLError, e:
+                # if action fails, validate login
+                try:
+                    response = urllib2.urlopen(req)
+                except urllib2.URLError, e:
+                    if e.code == 403 or e.code == 401:
+                        self.refreshToken()
+                        req = urllib2.Request(url, None, self.getHeadersList())
+                        try:
+                            response = urllib2.urlopen(req)
+                        except urllib2.URLError, e:
+                            xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
+                            self.crashreport.sendError('getPlaybackCall-0',str(e))
+                            return
+                    else:
                         xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
                         self.crashreport.sendError('getPlaybackCall-0',str(e))
                         return
-                else:
-                    xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
-                    self.crashreport.sendError('getPlaybackCall-0',str(e))
-                    return
 
-            response_data = response.read()
-            response.close()
+                response_data = response.read()
+                response.close()
 
 
-            for r1 in re.finditer('\{(.*?)\"appDataContents\"\:' ,response_data, re.DOTALL):
-                entry = r1.group(1)
-                package = self.getMediaPackage(entry)
-                docid = package.file.id
-                mediaURLs.append(package.mediaurl)
+                for r1 in re.finditer('\{(.*?)\"appDataContents\"\:' ,response_data, re.DOTALL):
+                    entry = r1.group(1)
+                    package = self.getMediaPackage(entry)
+                    docid = package.file.id
+                    mediaURLs.append(package.mediaurl)
 
         #given docid, fetch original playback
         else:
@@ -1043,9 +1050,10 @@ class acd(cloudservice):
             # video-entry
             for r1 in re.finditer('\{(.*?)\,\"status\"\:\"[^\"]+\"\}' , response_data, re.DOTALL):
                 entry = r1.group(1)
-                media = self.getMediaPackage(entry, contentType=7)
+                media = self.getMediaPackage(entry, contentType=contentType)
                 if media is not None:
                     mediaURLs.append(media.mediaurl)
+                    package = media
 
             #mediaURLs.append(mediaurl.mediaurl(url, 'original', 0, 9999))
             #validate token before proceeding

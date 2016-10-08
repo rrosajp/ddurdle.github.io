@@ -1,5 +1,5 @@
 '''
-    Copyright (C) 2014 ddurdle
+    Copyright (C) 2014-2016 ddurdle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,10 +24,12 @@ import re
 #
 #
 class file:
-    # CloudService v0.2.4
+    # CloudService v0.2.5
     #
-    # - add resolution (video) [2016/06/20]
-    # - add playcount (video/music) [2016/06/20]
+    # - add resolution (video) [2015/06/20]
+    # - add playcount (video/music) [2015/06/20]
+    # - add checksum [2016/03/03]
+    # - add commands [2016/03/03]
 
 
     AUDIO = 1
@@ -38,7 +40,7 @@ class file:
 
     ##
     ##
-    def __init__(self, id, title, plot, type, fanart,thumbnail, date='', size=0, resolution='', playcount=0, duration=-1):
+    def __init__(self, id, title, plot, type, fanart,thumbnail, date='', size=0, resolution=None, playcount=0, duration=-1, download='', checksum=''):
         self.id = id
         self.title = title
         self.showtitle = title
@@ -47,6 +49,7 @@ class file:
         self.type = type
         self.fanart = fanart
         self.thumbnail = thumbnail
+        self.download = download
         self.hasMeta = False
         self.isEncoded = False
         self.date = date
@@ -57,6 +60,14 @@ class file:
         self.resolution = resolution
         self.playcount = playcount
         self.duration = duration
+        self.commands = ''
+        self.checksum = checksum
+        self.rating = ''
+        self.cast = ''
+        self.isTV = False
+        self.isMovie = False
+        self.cloudResume = 0
+        self.deleted = False
 
 
         # nekwebdev contribution
@@ -75,11 +86,10 @@ class file:
                                        '(.*)'
                                        '(?:[ .](\d{3}\d?p)|\Z)?'
                                        '\..*', re.IGNORECASE)
-#        self.regtv4 = re.compile('(.+?)'
-#                                       '[ .](\d\d?)X(\d\d?)'
-#                                       '(.*)'
-#                                       '(?:[ .](\d{3}\d?p)|\Z)?'
-#                                       '\..*')
+
+        self.regmovie = re.compile('(.*?[ \(]?[ .]?[ \-]?\d{4}[ \)]?[ .]?[ \-]?)'
+                          '.*?'
+                          '(?:(\d{3}\d?p)|\Z)?')
 
     def setAlbumMeta(self,album,artist,releaseDate,trackNumber,genre, trackTitle):
         self.album = album
@@ -96,6 +106,7 @@ class file:
         self.episode = episode
         self.showtitle = showtitle
         self.hasMeta = True
+        self.isTV = True
 
     def displayTitle(self):
         if self.decryptedTitle != '':

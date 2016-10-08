@@ -14,7 +14,7 @@
 
         <setting id="accounts" type="labelenum" values="1|2|3|4|5|6|7|8|9" default="1" label="" />
 
-        <setting id="acd1_type" subsetting="true" type="enum" label="30010" visible="eq(-1,0)" values="ClientLogin -- no longer works|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd1_type" subsetting="true" type="enum" label="30010" visible="eq(-1,0)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd1_username" subsetting="true" type="text" label="30001"  visible="eq(-2,0)" default="" />
         <setting id="acd1_code" subsetting="true" type="text" label="30201" visible="eq(-3,0) + gt(-2,0) + + lt(-2,4)" default="" />
         <setting id="acd1_client_id" subsetting="true" type="text" label="30202" visible="eq(-4,0) + gt(-3,2) + lt(-3,4)" default="" />
@@ -23,9 +23,9 @@
         <setting id="acd1_password" subsetting="true" type="text" enable="0" label="30002" visible="eq(-7,0) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd1_passcode" visible="eq(-8,0) + eq(-7,4)" enable="0" subsetting="true" type="text" label="30145" option="hidden" default="" />
         <setting id="acd1_spreadsheetname" type="text" label="30063" visible="eq(-9,0)" default="" />
-        <setting id="acd1_resumepoint" type="enum"  label="30170" visible="eq(-10,0)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd1_resumepoint" type="enum"  label="30170" visible="eq(-10,0)" values="Local only" default="1" />
 
-        <setting id="acd2_type" subsetting="true" type="enum" label="30010" visible="eq(-11,1)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd2_type" subsetting="true" type="enum" label="30010" visible="eq(-11,1)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd2_username" subsetting="true" type="text" label="30001" visible="eq(-12,1)" default="" />
         <setting id="acd2_code" subsetting="true" type="text" label="30201" visible="eq(-13,1) + gt(-2,0) + lt(-2,4)" default="" />
         <setting id="acd2_client_id" subsetting="true" type="text" label="30202" visible="eq(-14,1) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -34,9 +34,9 @@
         <setting id="acd2_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-17,1) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd2_passcode" visible="eq(-18,1) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd2_spreadsheetname" type="text" label="30063" visible="eq(-19,1)" default="" />
-        <setting id="acd2_resumepoint" type="enum" label="30170" visible="eq(-20,1)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd2_resumepoint" type="enum" label="30170" visible="eq(-20,1)" values="Local only" default="1" />
 
-        <setting id="acd3_type" subsetting="true" type="enum" label="30010" visible="eq(-21,2)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd3_type" subsetting="true" type="enum" label="30010" visible="eq(-21,2)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd3_username" subsetting="true" type="text" label="30001" visible="eq(-22,2)" default="" />
         <setting id="acd3_code" subsetting="true" type="text" label="30201" visible="eq(-23,2) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd3_client_id" subsetting="true" type="text" label="30202" visible="eq(-24,2) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -45,9 +45,9 @@
         <setting id="acd3_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-27,2) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd3_passcode" visible="eq(-28,2) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd3_spreadsheetname" type="text" label="30063" visible="eq(-29,2)" default="" />
-        <setting id="acd3_resumepoint" type="enum" label="30170" visible="eq(-30,2)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd3_resumepoint" type="enum" label="30170" visible="eq(-30,2)" values="Local only" default="1" />
 
-        <setting id="acd4_type" subsetting="true" type="enum" label="30010" visible="eq(-31,3)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd4_type" subsetting="true" type="enum" label="30010" visible="eq(-31,3)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd4_username" subsetting="true" type="text" label="30001" visible="eq(-32,3)" default="" />
         <setting id="acd4_code" subsetting="true" type="text" label="30201" visible="eq(-33,3) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd4_client_id" subsetting="true" type="text" label="30202" visible="eq(-34,3) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -56,9 +56,9 @@
         <setting id="acd4_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-37,3) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd4_passcode" visible="eq(-38,3) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd4_spreadsheetname" type="text" label="30063" visible="eq(-39,3)" default="" />
-        <setting id="acd4_resumepoint" type="enum" label="30170" visible="eq(-40,3)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd4_resumepoint" type="enum" label="30170" visible="eq(-40,3)" values="Local only" default="1" />
 
-        <setting id="acd5_type" subsetting="true" type="enum" label="30010" visible="eq(-41,4)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd5_type" subsetting="true" type="enum" label="30010" visible="eq(-41,4)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd5_username" subsetting="true" type="text" label="30001" visible="eq(-42,4)" default="" />
         <setting id="acd5_code" subsetting="true" type="text" label="30201" visible="eq(-43,4) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd5_client_id" subsetting="true" type="text" label="30202" visible="eq(-44,4) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -67,9 +67,9 @@
         <setting id="acd5_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-47,4) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd5_passcode" visible="eq(-48,4) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd5_spreadsheetname" type="text" label="30063" visible="eq(-49,4)" default="" />
-        <setting id="acd5_resumepoint" type="enum" label="30170" visible="eq(-50,4)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd5_resumepoint" type="enum" label="30170" visible="eq(-50,4)" values="Local only" default="1" />
 
-        <setting id="acd6_type" subsetting="true" type="enum" label="30010" visible="eq(-51,5)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd6_type" subsetting="true" type="enum" label="30010" visible="eq(-51,5)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd6_username" subsetting="true" type="text" label="30001" visible="eq(-52,5)" default="" />
         <setting id="acd6_code" subsetting="true" type="text" label="30201" visible="eq(-53,5) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd6_client_id" subsetting="true" type="text" label="30202" visible="eq(-54,5) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -78,9 +78,9 @@
         <setting id="acd6_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-57,5) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd6_passcode" visible="eq(-58,5) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd6_spreadsheetname" type="text" label="30063" visible="eq(-59,5)" default="" />
-        <setting id="acd6_resumepoint" type="enum" label="30170" visible="eq(-60,5)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd6_resumepoint" type="enum" label="30170" visible="eq(-60,5)" values="Local only" default="1" />
 
-        <setting id="acd7_type" subsetting="true" type="enum" label="30010" visible="eq(-61,6)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd7_type" subsetting="true" type="enum" label="30010" visible="eq(-61,6)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd7_username" subsetting="true" type="text" label="30001" visible="eq(-62,6)" default="" />
         <setting id="acd7_code" subsetting="true" type="text" label="30201" visible="eq(-63,6) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd7_client_id" subsetting="true" type="text" label="30202" visible="eq(-64,6) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -89,9 +89,9 @@
         <setting id="acd7_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-67,6) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd7_passcode" visible="eq(-68,6) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd7_spreadsheetname" type="text" label="30063" visible="eq(-69,6)" default="" />
-        <setting id="acd7_resumepoint" type="enum" label="30170" visible="eq(-70,6)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd7_resumepoint" type="enum" label="30170" visible="eq(-70,6)" values="Local only" default="1" />
 
-        <setting id="acd8_type" subsetting="true" type="enum" label="30010" visible="eq(-71,7)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd8_type" subsetting="true" type="enum" label="30010" visible="eq(-71,7)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd8_username" subsetting="true" type="text" label="30001" visible="eq(-72,7)" default="" />
         <setting id="acd8_code" subsetting="true" type="text" label="30201" visible="eq(-73,7) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd8_client_id" subsetting="true" type="text" label="30202" visible="eq(-74,7) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -100,9 +100,9 @@
         <setting id="acd8_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-77,7) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd8_passcode" visible="eq(-78,7) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd8_spreadsheetname" type="text" label="30063" visible="eq(-79,7)" default="" />
-        <setting id="acd8_resumepoint" type="enum" label="30170" visible="eq(-80,7)" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />
+        <setting id="acd8_resumepoint" type="enum" label="30170" visible="eq(-80,7)" values="Local only" default="1" />
 
-        <setting id="acd9_type" subsetting="true" type="enum" label="30010" visible="eq(-81,8)" values="ClientLogin|dmdsoftware OAUTH2|private OAUTH2|your own OAUTH2|Google Apps" default="4" />
+        <setting id="acd9_type" subsetting="true" type="enum" label="30010" visible="eq(-81,8)" values="your own OAUTH2|via dmdsoftware.net|not used|not used|via dmdsoftware.net" default="4" />
         <setting id="acd9_username" subsetting="true" type="text" label="30001" visible="eq(-82,8)" default="" />
         <setting id="acd9_code" subsetting="true" type="text" label="30201" visible="eq(-83,8) + gt(-2,0)+ lt(-2,4)" default="" />
         <setting id="acd9_client_id" subsetting="true" type="text" label="30202" visible="eq(-84,8) + gt(-3,2)+ lt(-3,4)" default="" />
@@ -111,7 +111,7 @@
         <setting id="acd9_password" subsetting="true" type="text" label="30002" enable="0" visible="eq(-87,8) + eq(-6,0)" option="hidden" default="" />
         <setting id="acd9_passcode" visible="eq(-88,8) + eq(-7,4)" subsetting="true" enable="0" type="text" label="30145" option="hidden" default="" />
         <setting id="acd9_spreadsheetname" type="text" label="30063" visible="eq(-89,8)" default="" />
-        <setting id="acd9_resumepoint" type="enum" label="30170" visible="eq(-90,8)" values="Local only|file property (write access required)|Google Spreadsheet" default="1" />
+        <setting id="acd9_resumepoint" type="enum" label="30170" visible="eq(-90,8)" values="Local only" default="1" />
 
 
     </category>
@@ -192,7 +192,7 @@
 
 	<!-- library integration properties -->
     <category label="30060">
-<!--       <setting id="resumepoint" type="enum" subsetting="true" label="30170" values="Local only|Google Drive file property (write access required)|Google Drive Spreadsheet" default="1" />-->
+<!--       <setting id="resumepoint" type="enum" subsetting="true" label="30170" values="Local only" default="1" />-->
         <setting id="resumeprompt" type="bool" label="30175" default="true" />
 
         <setting label="30061" type="lsep"/>

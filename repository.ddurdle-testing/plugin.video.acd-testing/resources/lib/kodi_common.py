@@ -321,7 +321,7 @@ def accountActions(addon, PLUGIN_NAME, mode, instanceName, numberOfAccounts):
 
             if code == '':
                 options = []
-                options.append('Google Apps')
+                options.append('Amazon Cloud Drive')
                 ret = xbmcgui.Dialog().select('select type', options)
 
                 invokedUsername = ''

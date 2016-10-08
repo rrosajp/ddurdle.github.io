@@ -105,7 +105,7 @@ class acd(cloudservice):
 
         # load the OAUTH2 tokens or force fetch if not set
         if (authenticate == True and (not self.authorization.loadToken(self.instanceName,addon, 'auth_access_token') or not self.authorization.loadToken(self.instanceName,addon, 'auth_refresh_token'))):
-            if self.type ==1 or self.addon.getSetting(self.instanceName+'_code'):
+            if self.type ==1 or self.type == 4 or self.addon.getSetting(self.instanceName+'_code'):
                 self.getToken(self.addon.getSetting(self.instanceName+'_code'))
             else:
                 xbmcgui.Dialog().ok(self.addon.getLocalizedString(30000), self.addon.getLocalizedString(30017), self.addon.getLocalizedString(30018))

@@ -453,6 +453,9 @@ elif mode == 'main' or mode == 'index':
     folderID = settings.getParameter('folder', False)
     folderName = settings.getParameter('foldername', False)
 
+    #share ID - amazon
+    shareID = settings.getParameter('shareid', False)
+
     #ensure that folder view playback
     if contextType == '':
         contextType = 'video'
@@ -460,6 +463,7 @@ elif mode == 'main' or mode == 'index':
     # display option for all Videos/Music/Photos, across gdrive
     #** gdrive specific
     if mode == 'main':
+
         if ('gdrive' in addon_parameters.PLUGIN_NAME):
 
             if contentType in (2,4,7):
@@ -516,7 +520,11 @@ elif mode == 'main' or mode == 'index':
         encfs_target = settings.encfsTarget
         encfs_inode = settings.encfsInode
 
-        mediaItems = service.getMediaList(folderID,contentType=8)
+        if shareID != False:
+            mediaItems = service.getSharedMediaList(shareID, folderID=folderID,contentType=contentType)
+
+        else:
+            mediaItems = service.getMediaList(folderID,contentType=8)
 
         if mediaItems:
             dirListINodes = {}
@@ -597,8 +605,12 @@ elif mode == 'main' or mode == 'index':
     else:
         path = settings.getParameter('epath', '')
 
+        if shareID != False:
+            mediaItems = service.getSharedMediaList(shareID, folderID=folderID,contentType=contentType)
+
+
         # real folder
-        if folderID != '':
+        elif folderID != '':
             mediaItems = service.getMediaList(folderID,contentType=contentType)
             if addon_parameters.spreadsheet and service.cloudResume == '2':
 
@@ -608,13 +620,13 @@ elif mode == 'main' or mode == 'index':
                 if service.worksheetID != '':
                     service.gSpreadsheet.updateMediaPackageList(service.worksheetID, folderID, mediaItems)
 
-            if mediaItems:
-                for item in sorted(mediaItems):
+        if mediaItems:
+            for item in sorted(mediaItems):
 
-                        if item.file is None:
-                            service.addDirectory(item.folder, contextType=contextType, epath=str(path)+ '/' + str(item.folder.title) + '/')
-                        else:
-                            service.addMediaFile(item, contextType=contextType)
+                    if item.file is None:
+                        service.addDirectory(item.folder, contextType=contextType, epath=str(path)+ '/' + str(item.folder.title) + '/', shareID=shareID)
+                    else:
+                        service.addMediaFile(item, contextType=contextType)
 
         # virtual folder; exists in spreadsheet only
         # not in use

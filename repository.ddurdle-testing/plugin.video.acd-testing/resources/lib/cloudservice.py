@@ -413,11 +413,11 @@ class cloudservice(object):
     #   parameters: folder id, context type, whether the directory is encfs, encfs:decryption path, encfs:encryption path
     #   returns: fully qualified url
     ##
-    def getDirectoryCall(self, folder, contextType='video', encfs=False, dpath='', epath=''):
+    def getDirectoryCall(self, folder, contextType='video', encfs=False, dpath='', epath='', shareID=False):
         if encfs:
             values = {'instance': self.instanceName, 'encfs': 'true', 'folder': folder.id, 'content_type': contextType, 'dpath': dpath, 'epath':epath}
         elif folder.id != '':
-            values = {'instance': self.instanceName, 'folder': folder.id, 'content_type': contextType, 'epath':epath}
+            values = {'instance': self.instanceName, 'folder': folder.id, 'content_type': contextType, 'epath':epath, 'shareid':shareID}
         elif folder.title != '':
             values = {'instance': self.instanceName, 'foldername': folder.title, 'content_type': contextType, 'epath':epath}
 
@@ -1074,7 +1074,7 @@ class cloudservice(object):
     # Add a directory to a directory listing screen
     #   parameters: folder object, context type, local path (optional), whether folder is encfs, encfs:decryption path, encfs:encryption path
     ##
-    def addDirectory(self, folder, contextType='video', localPath='', encfs=False, dpath='', epath=''):
+    def addDirectory(self, folder, contextType='video', localPath='', encfs=False, dpath='', epath='', shareID=False):
 
         fanart = self.addon.getAddonInfo('path') + '/fanart.jpg'
 
@@ -1091,6 +1091,22 @@ class cloudservice(object):
                 values = {'instance': self.instanceName, 'title': folder.title}
 
                 url = self.PLUGIN_URL+'?mode=search&content_type='+contextType + '&' + urllib.urlencode(values)
+
+                xbmcplugin.addDirectoryItem(plugin_handle, url, listitem,
+                                isFolder=True, totalItems=0)
+
+            elif 'SHARE' in folder.id:
+                listitem = xbmcgui.ListItem(decode('*share* ' + folder.displayTitle()), iconImage=decode(folder.thumb), thumbnailImage=decode(folder.thumb))
+                extrapulatedFolderName = re.compile('SHARE (.*?)$')
+
+                resourceID = extrapulatedFolderName.match(folder.id)
+
+                if resourceID is not None:
+                    folder.id = resourceID.group(1)
+
+                values = {'instance': self.instanceName, 'title': folder.title, 'shareid': folder.id}
+
+                url = self.PLUGIN_URL+'?mode=index&content_type='+contextType + '&' + urllib.urlencode(values)
 
                 xbmcplugin.addDirectoryItem(plugin_handle, url, listitem,
                                 isFolder=True, totalItems=0)
@@ -1125,7 +1141,7 @@ class cloudservice(object):
 
                     #encfs
                     elif contextType != 'image':
-                        values = {'username': self.authorization.username, 'epath': epath, 'dpath': dpath, 'encfs':'true' ,'title': folder.title, 'folder': folder.id, 'content_type': contextType }
+                        values = {'username': self.authorization.username, 'epath': epath, 'dpath': dpath, 'encfs':'true' ,'title': folder.title, 'folder': folder.id, 'content_type': contextType, 'shareid': shareID }
 
                         cm.append(( self.addon.getLocalizedString(30042), 'XBMC.RunPlugin('+self.PLUGIN_URL+'?mode=buildstrm&'+ urllib.urlencode(values)+')', ))
 
@@ -1179,7 +1195,7 @@ class cloudservice(object):
                 listitem.addContextMenuItems(cm, False)
                 listitem.setProperty('fanart_image',  folder.fanart)
 
-                xbmcplugin.addDirectoryItem(plugin_handle, self.getDirectoryCall(folder, contextType, encfs=encfs, dpath=dpath, epath=epath), listitem,
+                xbmcplugin.addDirectoryItem(plugin_handle, self.getDirectoryCall(folder, contextType, encfs=encfs, dpath=dpath, epath=epath, shareID=shareID), listitem,
                                 isFolder=True, totalItems=0)
 
 

@@ -440,7 +440,7 @@ class acd(cloudservice):
 
 
         if folderID != False:
-            url = self.API_URL + '/' + folderID + '/children?resourceVersion=V2&ContentType=JSON&limit=5&sort=%5B%22kind+DESC%22%2C+%22modifiedDate+DESC%22%5D&asset=ALL&tempLink=true&shareId=' + sharedID
+            url = self.API_URL + 'nodes/' + folderID + '/children?resourceVersion=V2&ContentType=JSON&limit=5&sort=%5B%22kind+DESC%22%2C+%22modifiedDate+DESC%22%5D&asset=ALL&tempLink=true&shareId=' + sharedID
         else:
             url = self.API_URL +'shares/' + sharedID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
 
@@ -461,11 +461,11 @@ class acd(cloudservice):
                     except urllib2.URLError, e:
                         xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
                         self.crashreport.sendError('getSharedMediaList',str(e))
-                        return
+                        return mediaFiles
                 else:
                     xbmc.log(self.addon.getAddonInfo('name') + ': ' + str(e), xbmc.LOGERROR)
                     self.crashreport.sendError('getSharedMediaList',str(e))
-                    return
+                    return mediaFiles
 
             response_data = response.read()
             response.close()
@@ -548,7 +548,7 @@ class acd(cloudservice):
                     thumbnail = r.group(1)
                     break
 
-                url = self.contentURL +'nodes/' + resourceID + '/content'
+                url = self.contentURL +'nodes/' + str(resourceID) + '/content'
 
                 #for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
                 #             entry, re.DOTALL):
@@ -592,7 +592,11 @@ class acd(cloudservice):
                         resourceID = r.group(1)
                         title = r.group(2)
                         resourceID = 'ENCFS ' + resourceID
-
+                    for r in re.finditer('SHARE\|([^\|]+)\|([^\|]+)' ,
+                             title, re.DOTALL):
+                        resourceID = r.group(1)
+                        title = r.group(2)
+                        resourceID = 'SHARE ' + resourceID
                     media = package.package(None,folder.folder(resourceID,title, thumb=icon))
                     return media
 

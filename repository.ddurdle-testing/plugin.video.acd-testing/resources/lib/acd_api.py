@@ -355,10 +355,10 @@ class acd(cloudservice):
     #   parameters: prompt for video quality (optional), cache type (optional)
     #   returns: list of videos
     ##
-    def getMediaList(self, folderName=False, title=False, contentType=7):
+    def getMediaList(self, folderName=False, title=False, contentType=7, shareID=False):
 
         # retrieve all items
-        url = self.metaURL +'nodes'
+        url = self.metaURL + 'nodes'
 
         # default / show root folder
         # search for title
@@ -374,6 +374,19 @@ class acd(cloudservice):
         # retrieve folder items
         else:
             url = url +'/'+ str(folderName) + '/children'
+
+#        if shareID != False:
+#            url = url + '?shareId=' + shareID
+
+
+        if folderName != False and shareID != False:
+        #    url = self.API_URL +  '/nodes/' + folderName + '/children?resourceVersion=V2&ContentType=JSON&limit=5&sort=%5B%22kind+DESC%22%2C+%22modifiedDate+DESC%22%5D&asset=ALL&tempLink=true&shareId=' + shareID
+            url = url + '?shareId=' + shareID
+
+        elif shareID != False:
+            url = self.API_URL  +'/shares/' + shareID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
+
+
 
         baseURL = url
         mediaFiles = []
@@ -436,13 +449,13 @@ class acd(cloudservice):
     #   parameters: prompt for video quality (optional), cache type (optional)
     #   returns: list of videos
     ##
-    def getSharedMediaList(self, sharedID, folderID=False, contentType=7):
+    def getSharedMediaList(self, shareID, folderID=False, contentType=7):
 
 
         if folderID != False:
-            url = self.API_URL + 'nodes/' + folderID + '/children?resourceVersion=V2&ContentType=JSON&limit=5&sort=%5B%22kind+DESC%22%2C+%22modifiedDate+DESC%22%5D&asset=ALL&tempLink=true&shareId=' + sharedID
+            url = self.API_URL + 'nodes/' + folderID + '/children?resourceVersion=V2&ContentType=JSON&limit=5&sort=%5B%22kind+DESC%22%2C+%22modifiedDate+DESC%22%5D&asset=ALL&tempLink=true&shareId=' + shareID
         else:
-            url = self.API_URL +'shares/' + sharedID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
+            url = self.API_URL +'shares/' + shareID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
 
         baseURL = url
         mediaFiles = []

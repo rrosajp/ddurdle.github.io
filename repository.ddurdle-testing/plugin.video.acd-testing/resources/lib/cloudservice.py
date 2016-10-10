@@ -416,8 +416,10 @@ class cloudservice(object):
     def getDirectoryCall(self, folder, contextType='video', encfs=False, dpath='', epath='', shareID=False):
         if encfs:
             values = {'instance': self.instanceName, 'encfs': 'true', 'folder': folder.id, 'content_type': contextType, 'dpath': dpath, 'epath':epath}
-        elif folder.id != '':
+        elif folder.id != '' and shareID != False:
             values = {'instance': self.instanceName, 'folder': folder.id, 'content_type': contextType, 'epath':epath, 'shareid':shareID}
+        elif folder.id != '':
+            values = {'instance': self.instanceName, 'folder': folder.id, 'content_type': contextType, 'epath':epath}
         elif folder.title != '':
             values = {'instance': self.instanceName, 'foldername': folder.title, 'content_type': contextType, 'epath':epath}
 
@@ -1203,7 +1205,7 @@ class cloudservice(object):
     # Add a media file to a directory listing screen
     #   parameters: package, context type, whether file is encfs, encfs:decryption path, encfs:encryption path
     ##
-    def addMediaFile(self, package, contextType='video', encfs=False, dpath='', epath=''):
+    def addMediaFile(self, package, contextType='video', encfs=False, dpath='', epath='', shareID=False):
         thumbnail = self.cache.getThumbnail(self, package.file.thumbnail,package.file.id)
         listitem = xbmcgui.ListItem(package.file.displayTitle(), iconImage=package.file.thumbnail,
                                 thumbnailImage=package.file.thumbnail)
@@ -1393,7 +1395,8 @@ class cloudservice(object):
                 cm.append(( self.addon.getLocalizedString(30177) + self.addon.getLocalizedString(30179),  'XBMC.RunPlugin('+self.PLUGIN_URL+'?mode=cloud_db&' + urllib.urlencode(values) + '&action=queue'+')', ))
 
         url = url + '&content_type='+contextType
-
+        if shareID != False:
+            url = url + '&shareId=' + shareID
         #    listitem.addContextMenuItems( commands )
         #    if cm:
         if  package.file.type ==  package.file.PICTURE: #contextType == 'image':

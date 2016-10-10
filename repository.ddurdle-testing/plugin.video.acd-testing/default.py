@@ -520,11 +520,12 @@ elif mode == 'main' or mode == 'index':
         encfs_target = settings.encfsTarget
         encfs_inode = settings.encfsInode
 
-        if shareID != False:
-            mediaItems = service.getSharedMediaList(shareID, folderID=folderID,contentType=contentType)
+#        mediaItems = service.getMediaList(folderID,contentType=8, shareID=shareID)
 
+        if shareID != False:
+            mediaItems = service.getSharedMediaList(shareID, folderID,contentType=8)
         else:
-            mediaItems = service.getMediaList(folderID,contentType=8)
+            mediaItems = service.getMediaList(folderID,contentType=8, shareID=shareID)
 
         if mediaItems:
             dirListINodes = {}
@@ -605,13 +606,14 @@ elif mode == 'main' or mode == 'index':
     else:
         path = settings.getParameter('epath', '')
 
-        if shareID != False:
-            mediaItems = service.getSharedMediaList(shareID, folderID=folderID,contentType=contentType)
-
 
         # real folder
-        elif folderID != '':
-            mediaItems = service.getMediaList(folderID,contentType=contentType)
+        if folderID != '':
+            if shareID != False:
+                mediaItems = service.getSharedMediaList(shareID, folderID,contentType=contentType)
+            else:
+                mediaItems = service.getMediaList(folderID,contentType=contentType, shareID=shareID)
+
             if addon_parameters.spreadsheet and service.cloudResume == '2':
 
                 if service.gSpreadsheet is None:
@@ -626,7 +628,7 @@ elif mode == 'main' or mode == 'index':
                     if item.file is None:
                         service.addDirectory(item.folder, contextType=contextType, epath=str(path)+ '/' + str(item.folder.title) + '/', shareID=shareID)
                     else:
-                        service.addMediaFile(item, contextType=contextType)
+                        service.addMediaFile(item, contextType=contextType, shareID=shareID)
 
         # virtual folder; exists in spreadsheet only
         # not in use
@@ -972,6 +974,8 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
     filename = settings.getParameter('filename') #file ID
     folderID = settings.getParameter('folder') #folder ID
 
+    #share ID - amazon
+    shareID = settings.getParameter('shareid', False)
 
     spreadsheetSTRM = settings.getParameter('spreadsheet')
     sheetSTRM = settings.getParameter('sheet')
@@ -1075,7 +1079,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
 
         ## check for SRT
         # use folderID, look for files with srt/sub
-        mediaItems = service.getMediaList(folderID,contentType=8)
+        mediaItems = service.getMediaList(folderID,contentType=8, shareID=shareID)
         encfsSubTitles = []
 
         if mediaItems:

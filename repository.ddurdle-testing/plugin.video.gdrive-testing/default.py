@@ -472,9 +472,9 @@ elif mode == 'cloud_dbtest':
             except:
                 pass
 
-            for title in spreadsheets.iterkeys():
-                if title == 'Movie2':
-                    worksheets = service.gSpreadsheet.getSpreadsheetWorksheets(spreadsheets[title])
+            for t in spreadsheets.iterkeys():
+                if t == 'Movie2':
+                    worksheets = service.gSpreadsheet.getSpreadsheetWorksheets(spreadsheets[t])
 
                     for worksheet in worksheets.iterkeys():
                         if worksheet == 'db':
@@ -493,9 +493,17 @@ elif mode == 'cloud_dbtest':
         elif action == 'queue':
             package.folder.id = 'QUEUED'
             service.gSpreadsheet.setMediaStatus(service.worksheetID,package)
-        elif action == 'recentwatched' or action == 'recentstarted' or action == 'library' or action == 'queued':
+        elif action == 'genre' or action == 'year' or action == 'recentstarted' or  'library' in action or action == 'queued':
 
-            mediaItems = service.gSpreadsheet.getMovies(spreadsheet)
+            if action == 'genre':
+                mediaItems = service.gSpreadsheet.getMovies(spreadsheet, genre=title)
+            elif action == 'year':
+                mediaItems = service.gSpreadsheet.getMovies(spreadsheet, year=title)
+            elif action == 'library_genre':
+                mediaItems = service.gSpreadsheet.getGenre(spreadsheet)
+            elif action == 'library_year':
+                mediaItems = service.gSpreadsheet.getYear(spreadsheet)
+
 
             #ensure that folder view playback
             if contextType == '':
@@ -548,6 +556,9 @@ elif mode == 'main' or mode == 'index':
             kodi_common.addMenu(PLUGIN_URL+'?mode=index&folder=STARRED-FILESFOLDERS&instance='+str(service.instanceName)+'&content_type='+contextType,'['+addon.getLocalizedString(30018)+  ' '+addon.getLocalizedString(30097)+']')
         kodi_common.addMenu(PLUGIN_URL+'?mode=search&instance='+str(service.instanceName)+'&content_type='+contextType,'['+addon.getLocalizedString(30111)+']')
         kodi_common.addMenu(PLUGIN_URL+'?mode=buildstrm2&instance='+str(service.instanceName)+'&content_type='+str(contextType),'<Testing - manual run of change tracking build STRM>')
+        if addon_parameters.testing_features:
+            kodi_common.addMenu(PLUGIN_URL+'?mode=cloud_dbtest&action=library_genre&content_type='+str(contextType),'<Testing - movies - genre>')
+            kodi_common.addMenu(PLUGIN_URL+'?mode=cloud_dbtest&action=library_year&content_type='+str(contextType),'<Testing - movies - year>')
 
         #CLOUD_DB
         if 'gdrive' in addon_parameters.PLUGIN_NAME and service.gSpreadsheet is not None:

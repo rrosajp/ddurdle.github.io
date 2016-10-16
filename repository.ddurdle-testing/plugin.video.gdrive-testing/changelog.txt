@@ -1,3 +1,7 @@
+v0.8.23 (2016-10-16)
+- tesitng browser movies by studio
+- tesitng browser movies by directors
+- implement movie browsing by title
 v0.8.22 (2016-10-15)
 - enable playback for testing features
 v0.8.21 (2016-10-14)

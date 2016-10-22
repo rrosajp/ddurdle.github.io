@@ -386,7 +386,8 @@ class acd(cloudservice):
         elif shareID != False:
             url = self.API_URL  +'/shares/' + shareID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
 
-
+        elif folderName != False:
+            url = url + '?tempLink=true'
 
         baseURL = url
         mediaFiles = []
@@ -562,6 +563,7 @@ class acd(cloudservice):
                     break
 
                 url = self.contentURL +'nodes/' + str(resourceID) + '/content'
+                thumbnail = url  + '?viewBox=200' + '|' + self.getHeadersEncoded()
 
                 #for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
                 #             entry, re.DOTALL):
@@ -570,6 +572,7 @@ class acd(cloudservice):
                 for r in re.finditer('\"tempLink\"\:\"([^\"]+)\"' ,
                              entry, re.DOTALL):
                     url = r.group(1)
+                    thumbnail = url  + '?viewBox=200'
                     break
                 for r in re.finditer('\"extension\"\:\"([^\"]+)\"' ,
                              entry, re.DOTALL):

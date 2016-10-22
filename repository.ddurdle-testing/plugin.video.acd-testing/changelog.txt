@@ -1,3 +1,6 @@
+v0.2.4 (2016-10-21)
+- fix STRM creation when local direstory has unicode characters
+- fix: Double-byte filenames cause issue with STRM creation #19
 v0.2.3 (2016-10-09)
 - enable shared folders functionality
 - Implement shared links / public links #1

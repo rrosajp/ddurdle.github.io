@@ -1,3 +1,5 @@
+v0.2.5 (2016-10-22)
+- encfs remote/other, change ctime to mtime (better compatibility)
 v0.2.4 (2016-10-21)
 - fix STRM creation when local direstory has unicode characters
 - fix: Double-byte filenames cause issue with STRM creation #19

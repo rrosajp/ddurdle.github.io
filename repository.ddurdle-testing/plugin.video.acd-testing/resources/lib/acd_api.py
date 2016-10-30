@@ -563,7 +563,7 @@ class acd(cloudservice):
                     break
 
                 url = self.contentURL +'nodes/' + str(resourceID) + '/content'
-                thumbnail = url  + '?viewBox=200' + '|' + self.getHeadersEncoded()
+                thumbnail = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content' +  '?viewBox=200' #+ '|' + self.getHeadersEncoded()
 
                 #for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
                 #             entry, re.DOTALL):
@@ -572,7 +572,11 @@ class acd(cloudservice):
                 for r in re.finditer('\"tempLink\"\:\"([^\"]+)\"' ,
                              entry, re.DOTALL):
                     url = r.group(1)
-                    thumbnail = url  + '?viewBox=200'
+                #    thumbnail = url  + '?viewBox=200'
+
+                    thumbnail = 'http://localhost:8011/'  + url +  '?viewBox=200' #+ '|' + self.getHeadersEncoded()
+                    thumbnail = re.sub(self.contentURL, '', thumbnail)
+
                     break
                 for r in re.finditer('\"extension\"\:\"([^\"]+)\"' ,
                              entry, re.DOTALL):

@@ -605,7 +605,7 @@ elif mode == 'main' or mode == 'index':
                         if encfs_inode == 0:
                             dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(item.folder.title)).st_ino()))] = item.folder
                         else:
-                            dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(item.folder.title)).st_ctime()))] = item.folder
+                            dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(item.folder.title)).st_mtime()))] = item.folder
                         #service.addDirectory(item.folder, contextType=contextType,  encfs=True)
                     else:
                         xbmcvfs.mkdir(encfs_source +  str(encryptedPath))
@@ -613,7 +613,7 @@ elif mode == 'main' or mode == 'index':
                         if encfs_inode == 0:
                             fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath)+ str(item.file.title)).st_ino()))] = item
                         else:
-                            fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath) + str(item.file.title)).st_ctime()))] = item
+                            fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath) + str(item.file.title)).st_mtime()))] = item
                         #service.addMediaFile(item, contextType=contextType)
                     if encfs_inode > 0:
                             xbmc.sleep(1000)
@@ -635,7 +635,7 @@ elif mode == 'main' or mode == 'index':
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + dir).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + dir).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + dir).st_mtime())
 
                 #we found a directory
                 if index in dirListINodes.keys():
@@ -658,7 +658,7 @@ elif mode == 'main' or mode == 'index':
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + file).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + file).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPath) + file).st_mtime())
                 if index in fileListINodes.keys():
                     fileListINodes[index].file.decryptedTitle = file
                     if contentType < 9 or media_re.search(str(file)):
@@ -908,7 +908,7 @@ elif mode == 'slideshow':
         if encfs_inode == 0:
             folderINode = str(xbmcvfs.Stat(encfs_target + '/' + str(folder)).st_ino())
         else:
-            folderINode = str(xbmcvfs.Stat(encfs_target + '/' + str(folder)).st_ctime())
+            folderINode = str(xbmcvfs.Stat(encfs_target + '/' + str(folder)).st_mtime())
 
         mediaItems = service.getMediaList(folderName=folder, contentType=8)
 
@@ -920,7 +920,7 @@ elif mode == 'slideshow':
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_source + '/' + dir).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_source + '/' + dir).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_source + '/' + dir).st_mtime())
 
                 if index == folderINode:
 
@@ -1160,7 +1160,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                         if encfs_inode == 0:
                             dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(itemx.folder.title)).st_ino()))] = itemx.folder
                         else:
-                            dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(itemx.folder.title)).st_ctime()))] = itemx.folder
+                            dirListINodes[(str(xbmcvfs.Stat(encfs_source + str(encryptedPath) + str(itemx.folder.title)).st_mtime()))] = itemx.folder
                         #service.addDirectory(item.folder, contextType=contextType,  encfs=True)
                     else:
                         xbmcvfs.mkdir(encfs_source +  str(encryptedPath))
@@ -1168,7 +1168,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                         if encfs_inode == 0:
                             fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath)+ str(itemx.file.title)).st_ino()))] = itemx
                         else:
-                            fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath) + str(itemx.file.title)).st_ctime()))] = itemx
+                            fileListINodes[(str(xbmcvfs.Stat(encfs_source +  str(encryptedPath) + str(itemx.file.title)).st_mtime()))] = itemx
                         #service.addMediaFile(itemx, contextType=contextType)
                     if encfs_inode > 0:
                             xbmc.sleep(1000)
@@ -1197,7 +1197,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + dir).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + dir).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + dir).st_mtime())
 
                 #we found a file
                 if index in fileListINodes.keys():
@@ -1215,7 +1215,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + file).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + file).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_target + str(dencryptedPathWithoutFilename) + file).st_mtime())
                 if index in fileListINodes.keys():
                     fileListINodes[index].file.decryptedTitle = file
                     if media_re.search(str(file)):
@@ -1236,7 +1236,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
             if encfs_inode == 0:
                 fileListINodes[(str(xbmcvfs.Stat(encfs_target +  'encfs.mp4').st_ino()))] = item
             else:
-                fileListINodes[(str(xbmcvfs.Stat(encfs_target +  'encfs.mp4').st_ctime()))] = item
+                fileListINodes[(str(xbmcvfs.Stat(encfs_target +  'encfs.mp4').st_mtime()))] = item
             if encfs_inode > 0:
                 xbmc.sleep(1000)
 
@@ -1246,7 +1246,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_source + str(dir)).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_source + str(dir)).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_source + str(dir)).st_mtime())
                 #we found a file
                 if index in fileListINodes.keys():
                     xbmcvfs.rmdir(encfs_source + str(dir))
@@ -1263,7 +1263,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                 if encfs_inode == 0:
                     index = str(xbmcvfs.Stat(encfs_source + str(file)).st_ino())
                 else:
-                    index = str(xbmcvfs.Stat(encfs_source + str(file)).st_ctime())
+                    index = str(xbmcvfs.Stat(encfs_source + str(file)).st_mtime())
                 #we found a file
                 if index in fileListINodes.keys():
                     #resume
@@ -1681,6 +1681,23 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
 
 xbmcplugin.endOfDirectory(plugin_handle)
 
+from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+from resources.lib import streamer
+import urllib, urllib2
+
+try:
+    server = streamer.MyHTTPServer(('', 8011), streamer.myStreamer)
+    server.setDomain(service, service.contentURL)
+    while server.ready:
+        server.handle_request()
+        xbmc.sleep(1000)
+    server.socket.close()
+except: pass
+#    req = urllib2.Request('http://localhost:8005/kill', None, None)
+#    try:
+#        response = urllib2.urlopen(req)
+#    except: pass
+#    server = streamer.MyHTTPServer(('', 8006), streamer.myStreamer)
 
 #automation - create strm files
 if service is not None:

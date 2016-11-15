@@ -386,8 +386,8 @@ class acd(cloudservice):
         elif shareID != False:
             url = self.API_URL  +'/shares/' + shareID + '?resourceVersion=V2&ContentType=JSON&asset=ALL'
 
-        elif folderName != False:
-            url = url + '?tempLink=true'
+#        elif folderName != False:
+#            url = url + '?tempLink=true'
 
         baseURL = url
         mediaFiles = []
@@ -557,13 +557,8 @@ class acd(cloudservice):
                              entry, re.DOTALL):
                     fileSize = r.group(1)
                     break
-                for r in re.finditer('\"thumbnailLink\"\:\"([^\"]+)\"' ,
-                             entry, re.DOTALL):
-                    thumbnail = r.group(1)
-                    break
 
                 url = self.contentURL +'nodes/' + str(resourceID) + '/content'
-                thumbnail = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content' +  '?viewBox=200' #+ '|' + self.getHeadersEncoded()
 
                 #for r in re.finditer('\"downloadUrl\"\:\"([^\"]+)\"' ,
                 #             entry, re.DOTALL):
@@ -574,8 +569,8 @@ class acd(cloudservice):
                     url = r.group(1)
                 #    thumbnail = url  + '?viewBox=200'
 
-                    thumbnail = 'http://localhost:8011/'  + url +  '?viewBox=200' #+ '|' + self.getHeadersEncoded()
-                    thumbnail = re.sub(self.contentURL, '', thumbnail)
+#                    thumbnail = 'http://localhost:8011/'  + url +  '?viewBox=200' #+ '|' + self.getHeadersEncoded()
+ #                   thumbnail = re.sub(self.contentURL, '', thumbnail)
 
                     break
                 for r in re.finditer('\"extension\"\:\"([^\"]+)\"' ,
@@ -622,6 +617,8 @@ class acd(cloudservice):
 
                 # entry is a video
                 elif ((fileExtension == '' or fileExtension.lower() not in ('sub')) and (resourceType == 'application/vnd.google-apps.video' or 'video' in resourceType or resourceType in ('application/x-matroska') or fileExtension.lower() in ('mkv', 'm2ts', 'ts', 'iso')) and contentType in (0,1,2,4,7)):
+                    thumbnail = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content' +  '?viewBox='+ str(self.settings.thumbnailResolution) #+ '|' + self.getHeadersEncoded()
+
                     mediaFile = file.file(resourceID, title, title, self.MEDIA_TYPE_VIDEO, fanart, thumbnail, size=fileSize, resolution=[height,width], playcount=int(0), duration=duration)
 
                     if self.settings.parseTV:
@@ -675,10 +672,19 @@ class acd(cloudservice):
 
                 # entry is a photo
                 elif ((resourceType == 'application/vnd.google-apps.photo' or 'image' in resourceType) and contentType in (2,4,5,6,7)):
+                    thumbnail = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content' +  '?viewBox='+ str(self.settings.thumbnailResolution) #+ '|' + self.getHeadersEncoded()
+
                     mediaFile = file.file(resourceID, title, title, self.MEDIA_TYPE_PICTURE, '', thumbnail, size=fileSize)
 
+                    if self.settings.photoResolution < 9999:
+                        #photoURL = url  +  '?viewBox='+ str(self.settings.photoResolution)
+                        photoURL = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content' +  '?viewBox='+ str(self.settings.photoResolution) #+ '|' + self.getHeadersEncoded()
+                    else:
+                        #photoURL = url
+                        photoURL = 'http://localhost:8011/nodes/'  + str(resourceID) + '/content'
+
                     media = package.package(mediaFile,folder.folder(folderName,''))
-                    media.setMediaURL(mediaurl.mediaurl(url, '','',''))
+                    media.setMediaURL(mediaurl.mediaurl(photoURL, '','',''))
                     return media
 
                 # entry is a photo, but we are not in a photo display

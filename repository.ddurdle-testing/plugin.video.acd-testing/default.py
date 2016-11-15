@@ -1690,7 +1690,7 @@ try:
     server.setDomain(service, service.contentURL)
     while server.ready:
         server.handle_request()
-        xbmc.sleep(1000)
+        #xbmc.sleep(10)
     server.socket.close()
 except: pass
 #    req = urllib2.Request('http://localhost:8005/kill', None, None)

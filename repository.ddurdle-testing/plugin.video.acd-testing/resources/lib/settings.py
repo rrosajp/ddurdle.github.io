@@ -123,11 +123,14 @@ class settings:
 
         self.thumbnailResolution = int(self.getSetting('thumb_resolution', 0))
         if self.thumbnailResolution == 0:
-            self.thumbnailResolution = 80
-        elif self.thumbnailResolution == 1:
             self.thumbnailResolution = 120
+        elif self.thumbnailResolution == 1:
+            self.thumbnailResolution = 180
         else:
-            self.thumbnailResolution = 200
+            self.thumbnailResolution = 220
+
+        self.streamer =  self.getSetting('streamer', True)
+        self.streamPort =  int(self.getSetting('stream_port', 8011))
 
         self.encfsDownloadType = int(self.getSetting('encfs_download_type', 1))
 

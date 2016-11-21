@@ -1,3 +1,6 @@
+v0.2.11 (2016-11-21)
+- update thumbnail sizes
+- add streamer parameter in settings
 v0.2.10 (2016-11-02)
 - videos feature - enable thumbnails (except for MKV files)
 v0.2.9 (2016-11-02)

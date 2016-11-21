@@ -145,6 +145,8 @@
         <setting id="photo_folder" type="folder" label="30038" default="" />
         <setting id="photo_resolution" type="enum" label="30185" values="720p|1080p|4k|8k|16k|480p|original" default="0" />
         <setting id="thumb_resolution" type="enum" label="30189" values="small|medium|large" default="0" />
+        <setting id="streamer" type="bool" label="30190" default="true" />
+        <setting id="stream_port" type="number" subsetting="true" label="30191" default="8011" />
 
     </category>
 

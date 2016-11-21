@@ -1681,62 +1681,65 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
 
 xbmcplugin.endOfDirectory(plugin_handle)
 
-from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-from resources.lib import streamer
-import urllib, urllib2
 
-try:
-    server = streamer.MyHTTPServer(('', 8011), streamer.myStreamer)
-    server.setDomain(service, service.contentURL)
-    while server.ready:
-        server.handle_request()
-        #xbmc.sleep(10)
-    server.socket.close()
-except: pass
-#    req = urllib2.Request('http://localhost:8005/kill', None, None)
-#    try:
-#        response = urllib2.urlopen(req)
-#    except: pass
-#    server = streamer.MyHTTPServer(('', 8006), streamer.myStreamer)
+if service.settings.streamer:
 
-#automation - create strm files
-if service is not None:
+    from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+    from resources.lib import streamer
+    import urllib, urllib2
 
+    try:
+        server = streamer.MyHTTPServer(('',  service.settings.streamPort), streamer.myStreamer)
+        server.setDomain(service, service.contentURL)
+        while server.ready:
+            server.handle_request()
+            #xbmc.sleep(10)
+        server.socket.close()
+    except: pass
+    #    req = urllib2.Request('http://localhost:8005/kill', None, None)
+    #    try:
+    #        response = urllib2.urlopen(req)
+    #    except: pass
+    #    server = streamer.MyHTTPServer(('', 8006), streamer.myStreamer)
 
-    import time
-    currentDate = time.strftime("%Y%m%d")
-
-    if addon.getSetting(instanceName+'_changedate') == '' or int(addon.getSetting(instanceName+'_changedate')) < int(currentDate):
+    #automation - create strm files
+    if service is not None:
 
 
-        try:
-            path = settings.getSetting('strm_path')
-        except:
-            pass
+        import time
+        currentDate = time.strftime("%Y%m%d")
 
+        if addon.getSetting(instanceName+'_changedate') == '' or int(addon.getSetting(instanceName+'_changedate')) < int(currentDate):
 
-        if path != '':
 
             try:
-                pDialog = xbmcgui.DialogProgressBG()
-                pDialog.create(addon.getLocalizedString(30000), 'Building STRMs...')
+                path = settings.getSetting('strm_path')
             except:
                 pass
 
 
-            #service = gdrive_api2.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
+            if path != '':
 
-            try:
-                addon.setSetting(instanceName + '_changedate', currentDate)
-                service.buildSTRM2(path, contentType=contentType, pDialog=pDialog)
-            except:
-                pass
+                try:
+                    pDialog = xbmcgui.DialogProgressBG()
+                    pDialog.create(addon.getLocalizedString(30000), 'Building STRMs...')
+                except:
+                    pass
 
-            try:
-                pDialog.update(100)
-                pDialog.close()
-            except:
-                pass
+
+                #service = gdrive_api2.gdrive(PLUGIN_URL,addon,instanceName, user_agent, settings)
+
+                try:
+                    addon.setSetting(instanceName + '_changedate', currentDate)
+                    service.buildSTRM2(path, contentType=contentType, pDialog=pDialog)
+                except:
+                    pass
+
+                try:
+                    pDialog.update(100)
+                    pDialog.close()
+                except:
+                    pass
 
 
 

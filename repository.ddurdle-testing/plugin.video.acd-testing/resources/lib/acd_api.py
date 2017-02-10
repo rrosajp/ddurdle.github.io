@@ -325,15 +325,17 @@ class acd(cloudservice):
     # return the appropriate "headers" for Amazon Cloud Drive requests that include 1) user agent, 2) authorization token
     #   returns: list containing the header
     ##
-    def getHeadersList(self, isPOST=False):
+    def getHeadersList(self, isPOST=False, additionalHeaders={}):
         if self.authorization.isToken(self.instanceName,self.addon, 'auth_access_token') and not isPOST:
 #            return { 'User-Agent' : self.user_agent, 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
-            return { 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
+            headers = { 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
         elif self.authorization.isToken(self.instanceName,self.addon, 'auth_access_token'):
 #            return { 'User-Agent' : self.user_agent, 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
-            return { "If-Match" : '*', 'Content-Type': 'application/atom+xml', 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
+            headers = { "If-Match" : '*', 'Content-Type': 'application/atom+xml', 'Authorization' : 'Bearer ' + self.authorization.getToken('auth_access_token') }
         else:
-            return { 'User-Agent' : self.user_agent}
+            headers = { 'User-Agent' : self.user_agent}
+        headers.update(additionalHeaders)
+        return headers
 
 
     #*** not used

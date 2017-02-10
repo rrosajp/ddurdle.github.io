@@ -6,6 +6,7 @@ A video add-on for XBMC that enables playback of videos stored in an Amazon Clou
 
 **Supports [Tested on]:**
 All KODI / XBMC 13-16 including Linux, Windows, OS X, Android, Pivos, iOS (including ATV2)
+Tested successfully on KODI 17 BETA 7.  If you encounter issues, update to BETA 7 or later.
 
 The plugin uses the Amazon Cloud Drive API
 

@@ -1,3 +1,9 @@
+v0.2.12 (2017-02-09)
+- merge: Generating STRM when using encfs fails #37
+- merge: Additional Headers not defined in cloudservice.getHeadersList() #34
+- merge: Redirection to S3 fails with HTTP 400 #33
+- tested working as-is: add support for KODI 17 #26
+- tested working as-is: Support KODI 17 #13
 v0.2.11 (2016-11-21)
 - update thumbnail sizes
 - add streamer parameter in settings

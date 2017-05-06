@@ -1,3 +1,47 @@
+- promote to stable
+v0.2.12 (2017-02-09)
+- merge: Generating STRM when using encfs fails #37
+- merge: Additional Headers not defined in cloudservice.getHeadersList() #34
+- merge: Redirection to S3 fails with HTTP 400 #33
+- tested working as-is: add support for KODI 17 #26
+- tested working as-is: Support KODI 17 #13
+v0.2.11 (2016-11-21)
+- update thumbnail sizes
+- add streamer parameter in settings
+v0.2.10 (2016-11-02)
+- videos feature - enable thumbnails (except for MKV files)
+v0.2.9 (2016-11-02)
+- pictures feature - workaround for photos and thumbnails
+v0.2.8 (2016-10-31)
+- pictures feature - enable resized photo display
+- pictures feature - add setting for different size thumbnails
+- impelement: Implementing scaling resolutions for photos #23
+v0.2.7 (2016-10-30)
+- reduce timeout in photo streamer
+- use none templink in photo streamer
+- implement HEAD and header return in GET in photo streamer
+v0.2.6 (2016-10-29)
+- implement: Thumbnail preview for pictures #16
+v0.2.5 (2016-10-22)
+- encfs remote/other, change ctime to mtime (better compatibility)
+v0.2.4 (2016-10-21)
+- fix STRM creation when local direstory has unicode characters
+- fix: Double-byte filenames cause issue with STRM creation #19
+v0.2.3 (2016-10-09)
+- enable shared folders functionality
+- Implement shared links / public links #1
+v0.2.2 (2016-10-09)
+- testing shared folders
+v0.2.1 (2016-10-08)
+- fix for account types in logins
+v0.2.0 (2016-10-07)
+- sync with latest cloudservices
+- support for encfs
+- implement encfs STRM generation and playback
+- implement - Support to view images #10
+- implement - Import Videos to Kodi Library #7
+- implement - EncFS Support #5
+- bundle changes
 v0.1.10 (2016-10-04)
 - move to non-testing
 v0.1.9 (2016-10-03)

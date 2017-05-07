@@ -1,4 +1,7 @@
 - promote to stable
+v0.2.13 (2017-05-07)
+- fix error on account selection screen
+- promote to stable
 v0.2.12 (2017-02-09)
 - merge: Generating STRM when using encfs fails #37
 - merge: Additional Headers not defined in cloudservice.getHeadersList() #34

@@ -1,1 +1,1 @@
-rsync -avix --progress  ../../XBMC-gdrive-dev/* plugin.video.gdrive-testing
+rsync -avix --progress  ../../GDrive-for-KODI/* plugin.video.gdrive-testing

@@ -300,6 +300,8 @@ elif mode == 'buildstrm':
 
 ###
 
+
+
 #STRM playback without instance name; use default
 if invokedUsername == '' and instanceName == '' and (mode == 'video' or mode == 'audio'):
     instanceName = addon_parameters.PLUGIN_NAME + str(settings.getSetting('account_default', 1))
@@ -318,8 +320,9 @@ else:
     service = cloudservice2(PLUGIN_URL,addon,instanceName, user_agent, settings)
 
 
-#create strm files
-if mode == 'buildstrm2':
+
+        #create strm files
+if mode == 'buildf2':
 
 
     import time
@@ -649,8 +652,10 @@ elif mode == 'main' or mode == 'index':
 
 
                     if item.file is None:
-                        item.folder.displaytitle =  encrypt.decryptString(str(item.folder.title))
-                        service.addDirectory(item.folder, contextType=contextType, encfs=True )
+                        try:
+                            item.folder.displaytitle =  encrypt.decryptString(str(item.folder.title))
+                            service.addDirectory(item.folder, contextType=contextType, encfs=True )
+                        except: pass
                     else:
                         item.file.displaytitle = encrypt.decryptString(str(item.file.title))
                         print item.file.displaytitle
@@ -1833,6 +1838,27 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                         item.setPath('http://localhost:' + str(service.settings.streamPort) + '/play')
                         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
 
+                        # must load after all other (becomes blocking)
+                        # streamer
+                        if service is not None and service.settings.streamer:
+
+                            from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+                            from resources.lib import streamer
+                            import urllib, urllib2
+                            from SocketServer import ThreadingMixIn
+                            import threading
+
+
+                            try:
+                                server = streamer.MyHTTPServer(('',  service.settings.streamPort), streamer.myStreamer)
+                                server.setAccount(service, '')
+                                print "ENABLED STREAMER \n\n\n"
+
+                                while server.ready:
+                                    server.handle_request()
+                                server.socket.close()
+                            except: pass
+
                     else:
                         # regular playback
                         item.setPath(mediaURL.url)
@@ -1978,3 +2004,25 @@ if 0 and service is not None and instanceName is not None and settings.strm:
                             #while not player.isExit:
                             #    player.saveTime()
                             #    xbmc.sleep(5000)
+
+
+# must load after all other (becomes blocking)
+# streamer
+if service is not None and service.settings.streamer:
+
+    from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+    from resources.lib import streamer
+    import urllib, urllib2
+    from SocketServer import ThreadingMixIn
+    import threading
+
+
+    try:
+        server = streamer.MyHTTPServer(('',  service.settings.streamPort), streamer.myStreamer)
+        server.setAccount(service, '')
+        print "ENABLED STREAMER \n\n\n"
+
+        while server.ready:
+            server.handle_request()
+        server.socket.close()
+    except: pass

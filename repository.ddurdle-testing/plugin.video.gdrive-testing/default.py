@@ -657,12 +657,13 @@ elif mode == 'main' or mode == 'index':
                             service.addDirectory(item.folder, contextType=contextType, encfs=True )
                         except: pass
                     else:
-                        item.file.displaytitle = encrypt.decryptString(str(item.file.title))
-                        print item.file.displaytitle
-                        item.file.title =  item.file.displaytitle
-                        if contentType < 9 or media_re.search(str(item.file.title)):
-                            service.addMediaFile(item, contextType=contextType,  encfs=True)
-
+                        try:
+                            item.file.displaytitle = encrypt.decryptString(str(item.file.title))
+                            item.file.title =  item.file.displaytitle
+                            if contentType < 9 or media_re.search(str(item.file.title)):
+                                service.addMediaFile(item, contextType=contextType,  encfs=True)
+                        except:
+                            pass
 
         else:
 
@@ -1663,7 +1664,7 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                     elif settings.username != '' or settings.strm:
                         startPlayback = False
                         resolvedPlayback = True
-                        startPlayback = False
+
                         if not seek > 0  and package.file.cloudResume > 0 and not settings.cloudResumePrompt:
                             returnPrompt = xbmcgui.Dialog().yesno(addon.getLocalizedString(30000), addon.getLocalizedString(30176), str(int(float(package.file.cloudResume)/360)) + ':'+ str(int(float(package.file.cloudResume)/60)) + ':' + str(int(float(package.file.cloudResume)%60)))
                             if not returnPrompt:
@@ -1870,6 +1871,18 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
             if player.isPlaying():
                 xbmc.sleep(100)
 
+
+            # need to seek?
+            if seek > 0:
+                player.PlayStream(mediaURL.url, item, seek, startPlayback=startPlayback, package=package)
+            elif float(package.file.cloudResume) > 0:
+                player.PlayStream(mediaURL.url, item, package.file.cloudResume, startPlayback=startPlayback, package=package)
+            elif float(package.file.resume) > 0:
+                player.PlayStream(mediaURL.url, item, package.file.resume, startPlayback=startPlayback, package=package)
+            else:
+                player.PlayStream(mediaURL.url, item, 0, startPlayback=startPlayback, package=package)
+
+            # must occur after playback started (resolve or startPlayback in player)
             # load captions
             if  (settings.srt or settings.cc) and service.protocol == 2:
                 while not (player.isPlaying()):
@@ -1886,19 +1899,6 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
                         player.setSubtitles(file)
 
             xbmc.sleep(100)
-
-
-            # need to seek?
-            if seek > 0:
-                player.PlayStream(mediaURL.url, item, seek, startPlayback=startPlayback, package=package)
-            elif float(package.file.cloudResume) > 0:
-                player.PlayStream(mediaURL.url, item, package.file.cloudResume, startPlayback=startPlayback, package=package)
-            elif float(package.file.resume) > 0:
-                player.PlayStream(mediaURL.url, item, package.file.resume, startPlayback=startPlayback, package=package)
-            else:
-                player.PlayStream(mediaURL.url, item, 0, startPlayback=startPlayback, package=package)
-
-
 
             # we need to keep the plugin alive for as long as there is playback from the plugin, or the player object closes
             while not player.isExit:

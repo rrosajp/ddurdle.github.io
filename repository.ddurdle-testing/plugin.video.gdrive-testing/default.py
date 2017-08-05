@@ -1213,6 +1213,8 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
             mediaFile = file.file(filename, title, '', 0, '','')
             mediaFolder = folder.folder(folderID,'')
             (mediaURLs,package) = service.getPlaybackCall(package=package.package(mediaFile,mediaFolder), title=title, contentType=8)
+            #override title
+            package.file.title = title
             #(mediaURLs,package) = service.getPlaybackCall(None,title=title)
             mediaURL = mediaURLs[0]
             #mediaURL.url =  mediaURL.url +'|' + service.getHeadersEncoded()
@@ -1252,6 +1254,49 @@ elif mode == 'audio' or mode == 'video' or mode == 'search' or mode == 'play' or
 
                     item.setPath('http://localhost:' + str(service.settings.streamPort) + '/play')
                     xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+
+
+                    ## contribution by dabinn
+                    # handle situation where playback is skipped to next file, wait for new source to load
+                    if player.isPlaying():
+                        xbmc.sleep(100)
+
+                    startPlayback = False
+                    # need to seek?
+                    if seek > 0:
+                        player.PlayStream(mediaURL.url, item, seek, startPlayback=startPlayback, package=package)
+                    elif float(package.file.cloudResume) > 0:
+                        player.PlayStream(mediaURL.url, item, package.file.cloudResume, startPlayback=startPlayback, package=package)
+                    elif float(package.file.resume) > 0:
+                        player.PlayStream(mediaURL.url, item, package.file.resume, startPlayback=startPlayback, package=package)
+                    else:
+                        player.PlayStream(mediaURL.url, item, 0, startPlayback=startPlayback, package=package)
+
+
+
+                    # must occur after playback started (resolve or startPlayback in player)
+                    # load captions
+                    if 0 and (settings.srt or settings.cc) and service.protocol == 2:
+                        while not (player.isPlaying()):
+                            xbmc.sleep(1000)
+
+                        files = cache.getSRT(service)
+                        for file in files:
+                            if file != '':
+                                try:
+                                    #file = file.decode('unicode-escape')
+                                    file = file.encode('utf-8')
+                                except:
+                                    pass
+                                player.setSubtitles(file)
+
+                    xbmc.sleep(100)
+
+                    # we need to keep the plugin alive for as long as there is playback from the plugin, or the player object closes
+                    while not player.isExit:
+                        player.saveTime()
+                        xbmc.sleep(5000)
+
         else:
 
             settings.setEncfsParameters()

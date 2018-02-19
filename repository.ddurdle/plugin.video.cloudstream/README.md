@@ -15,7 +15,7 @@ XFileSharing Pro
 - sharesix.com (login & public URL) []
 - thefile.me (login & public URL) []
 - thevideo.me (public URL) [updated 07/2014]
-- uptobox.com (login & public URL) [updated 08/2015]
+- uptobox.com (login & public URL) [updated 08/2015 - validate 05/2017]
 - vidhog.com  (login & public URL) []
 - vidspot.net (login & public URL) [last checked 07/2015]
 - vodlocker.com [updated 07/2015]
@@ -33,6 +33,7 @@ XFileSharing Pro
 Supports [Tested on]:
 - XBMC 13/13.2
 - KODI 14 / 15 16 / 16.1
+- KODI 17 BETA 7 (tested and confirmed working)
 * including Linux, Windows, OS X, Android, Pivos, iOS (including ATV2), Raspberry Pi, OSMC
 
 

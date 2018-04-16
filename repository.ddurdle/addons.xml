@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.acd" version="0.2.13" name="Amazon Cloud Drive" provider-name="ddurdle">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video audio image</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Plays music and video from your Amazon Cloud Drive account</summary>
-        <description>Plays music and video from your Amazon Cloud Drive account</description>
-        <platform>all</platform>
-    </extension>
-</addon>
 <addon id="plugin.video.mediafire" version="0.2.0" name="MediaFire" provider-name="ddurdle">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -39,19 +26,6 @@
         <platform>all</platform>
     </extension>
 </addon>
-<addon id="plugin.video.onedrive" version="0.4.0" name="OneDrive" provider-name="ddurdle">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video audio</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Plays video and music from your OneDrive service</summary>
-        <description>Plays video and music from your OneDrive service. This addon is not affiliated with Microsoft</description>
-        <platform>all</platform>
-    </extension>
-</addon>
 <addon id="plugin.video.cloudstream" version="0.3.7" name="CloudStream" provider-name="ddurdle">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -75,21 +49,6 @@
     <extension point="xbmc.addon.metadata">
         <summary>Plays video and music from your ownCloud service</summary>
         <description>Plays video and music from your ownCloud service.  Supports/Tested on ownCloud 6, 7, 8. 8.2/8.2.2/9 and including Enterprise Edition.</description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
-
-<addon id="plugin.video.gdrive" version="0.8.05" name="gdrive" provider-name="ddurdle">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video audio image</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Plays music and video from your Google Drive account</summary>
-        <description>Plays music and video from your Google Drive account</description>
         <platform>all</platform>
     </extension>
 </addon>
